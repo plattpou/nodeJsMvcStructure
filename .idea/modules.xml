@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/mychat.iml" filepath="$PROJECT_DIR$/.idea/mychat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nodeJsMvcStructure.iml" filepath="$PROJECT_DIR$/.idea/nodeJsMvcStructure.iml" />
     </modules>
   </component>
 </project>
