@@ -2,7 +2,9 @@
 module.exports = {
 
     get: function(req, res) {
+        // noinspection JSUnresolvedFunction
         res.header('Content-Type','text/html');
+        // noinspection JSUnresolvedFunction
         res.render('layout',{
             partial :  'index.ejs', //from views folder
             windowTitle : 'My App', //browser title

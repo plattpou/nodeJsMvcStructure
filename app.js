@@ -60,7 +60,7 @@ Promise.all([
 
     // noinspection JSUnresolvedFunction
     app.listen(config['port'],function () {
-        console.log(`Chat Listening on ${global.config['host']}:${global.config['port']}`);
+        console.log(`${global.config['AppName']} Listening on ${global.config['host']}:${global.config['port']}`);
     });
 });
 

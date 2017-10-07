@@ -1,4 +1,5 @@
 {
+  "AppName" : "Sample App",
   "version" : "1.0",
   "host" : "http://localhost",
   "port" : 3000
