@@ -1,0 +1,9 @@
+{
+  "routes" : [
+    {
+      "url" : "/",
+      "controller" : "indexController",
+      "actions" : ["get"]
+    }
+  ]
+}
