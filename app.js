@@ -2,7 +2,9 @@ let express = require('express');
 let server = require('http');
 let app = express(server);
 
+// noinspection JSUnresolvedFunction
 app.set('view engine','ejs');
+// noinspection JSUnresolvedFunction
 app.set('views', __dirname + '/views');
 // noinspection JSUnresolvedFunction
 app.use(express.static(__dirname + '/public'));
@@ -56,6 +58,7 @@ Promise.all([
         })
     });
 
+    // noinspection JSUnresolvedFunction
     app.listen(config['port'],function () {
         console.log(`Chat Listening on ${global.config['host']}:${global.config['port']}`);
     });
