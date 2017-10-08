@@ -1,13 +1,20 @@
+/*
+todo: Create file config.json out of config.tmp.json
+todo: If you are not going to use sessions
+- remove require('express-session')
+- remove express-json from package.json
+- remove middleware app.use(session({secret:global['config'].secret, resave: false, saveUninitialized:true}));
+ */
+
 let express = require('express');
 let server = require('http');
 let app = express(server);
+let session = require('express-session');
 
 // noinspection JSUnresolvedFunction
 app.set('view engine','ejs');
 // noinspection JSUnresolvedFunction
 app.set('views', __dirname + '/views');
-// noinspection JSUnresolvedFunction
-app.use(express.static(__dirname + '/public'));
 
 console.log('Loading App..');
 
@@ -41,6 +48,14 @@ Promise.all([
     promiseConfigs,
     promiseRoutes
 ]).then(function ([config,routes]) {
+
+    //Middleware
+
+    // noinspection JSUnresolvedFunction
+    app.use(express.static(__dirname + '/public'));
+    // noinspection JSUnresolvedFunction
+    app.use(session({secret:global['config'].secret, resave: false, saveUninitialized:true}));
+
 
     global['config'] = config;
     routes['routes'].forEach(function (route) {
