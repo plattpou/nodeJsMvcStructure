@@ -11,7 +11,7 @@ module.exports = {
             scripts : ['/js/index.js'], //javascripts before body ends
             css : ['/css/index.css'], //css to include
             init : "<script>index.init(" + JSON.stringify({
-                webRoot : global['config']['webRoot']
+                webRoot : global['config']['host'] + ":" + global['config']['port']
             }) + ");</script>" //Snippet to execute allows to pass parameters into your scripts
         });
     },
