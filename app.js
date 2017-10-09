@@ -1,11 +1,3 @@
-/*
-todo: Create file config.json out of config.tmp.json
-todo: If you are not going to use sessions
-- remove require('express-session')
-- remove express-json from package.json
-- remove middleware app.use(session({secret:global['config'].secret, resave: false, saveUninitialized:true}));
- */
-
 let express = require('express');
 let server = require('http');
 let app = express(server);
