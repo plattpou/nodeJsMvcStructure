@@ -49,15 +49,15 @@ Promise.all([
     promiseRoutes
 ]).then(function ([config,routes]) {
 
-    //Middleware
+    global['config'] = config;
 
+    //Middleware
     // noinspection JSUnresolvedFunction
     app.use(express.static(__dirname + '/public'));
-    // noinspection JSUnresolvedFunction
-    app.use(session({secret:global['config'].secret, resave: false, saveUninitialized:true}));
+    // noinspection JSUnresolvedFunction,JSUnresolvedVariable
+    app.use(session({secret:global['config'].session_secret, resave: false, saveUninitialized:true}));
 
-
-    global['config'] = config;
+    //Load all routes
     routes['routes'].forEach(function (route) {
         let controller = require('./controllers/' + route['controller'] + '.js');
         route['actions'].forEach(function (action) {
