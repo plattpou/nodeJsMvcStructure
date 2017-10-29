@@ -1,9 +1,17 @@
 {
+  "roles" : {
+      "any" : 0,
+      "logged" : 100,
+      "admin" : 500,
+      "super_admin" : 1000,
+      "developer" : 9000
+  },
+
   "routes" : [
     {
       "url" : "/",
       "controller" : "indexController",
-      "actions" : ["get"]
+      "actions" : [{"get" : "any"},{"post" : "logged"}]
     }
   ]
 }

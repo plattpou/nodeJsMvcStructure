@@ -49,19 +49,33 @@ Promise.all([
     // noinspection JSUnresolvedFunction,JSUnresolvedVariable
     app.use(session({secret:global['config'].session_secret, resave: false, saveUninitialized:true}));
 
+    //@todo: create middleware to validate and use session cookie and set it to currentAccessLevel
+    let currentAccessLevel = 0; //any by default
+
     //Load all routes
     routes['routes'].forEach(function (route) {
         let controller = require('./controllers/' + route['controller'] + '.js');
-        route['actions'].forEach(function (action) {
+        route['actions'].forEach(function (actionData) {
 
-            if (typeof controller['init'] !== 'undefined') {
-                controller['init'](app);
+            let action = Object.keys(actionData)[0];
+            let minAccess = routes['roles'][actionData[action]];
+
+            if (currentAccessLevel >= minAccess) {
+                if (typeof controller['init'] !== 'undefined') {
+                    controller['init'](app);
+                }
+
+                //try to execute the action(method) from the controller, or warn
+                app[action](route['url'], controller[action] || function () {
+                    console.warn(`Method ${action} is not implemented in controller ${route[controller]} accessed by: ${route['url']}`)
+                });
+
+            } else {
+                app[action](route['url'], controller['denied'] || function (req, res) {
+                    res.status(401).json({ "error" : "access denied" });
+                });
             }
 
-            //try to execute the action(method) from the controller, or warn
-            app[action](route['url'], controller[action] || function () {
-                console.warn(`Method ${action} is not implemented in controller ${route[controller]} accessed by: ${route['url']}`)
-            });
         })
     });
 

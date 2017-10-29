@@ -16,8 +16,12 @@ module.exports = {
         });
     },
 
-    init : function (app) {
-        //in case you need to execute something before every request
+    //Optional, in case you need to execute something before every request
+    init : function (app) {},
+
+    //Optional, This allows to override the access denied action (default just json error)
+    denied : function (req, res) {
+        res.status(401).json({ "error" : "access denied" });
     }
 
 };
