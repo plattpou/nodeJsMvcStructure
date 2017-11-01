@@ -7,11 +7,11 @@ module.exports = {
         // noinspection JSUnresolvedFunction
         res.render('layout',{
             partial :  'index.ejs', //from views folder
-            windowTitle : 'My App', //browser title
+            windowTitle : global['config'].AppName, //browser title
             scripts : ['/js/index.js'], //javascripts before body ends
             css : ['/css/index.css'], //css to include
             init : "<script>index.init(" + JSON.stringify({
-                webRoot : global['config']['host'] + ":" + global['config']['port']
+                webRoot : global['webRoot']
             }) + ");</script>" //Snippet to execute allows to pass parameters into your scripts
         });
     },
@@ -20,9 +20,9 @@ module.exports = {
     init : function (app) {},
 
     //Optional, This allows to override the access denied action (default just json error)
-    denied : function (req, res) {
-        res.status(401).json({ "error" : "access denied" });
-    }
+    // denied : function (req, res) {
+    //     res.status(401).json({ "error" : "access denied" });
+    // }
 
 };
 

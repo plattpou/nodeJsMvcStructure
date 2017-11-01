@@ -1,0 +1,41 @@
+.btn {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+label.placeholder {
+    width: 100%;
+    text-align: left;
+    position: relative;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+label.placeholder input {
+    border: none;
+    border-bottom: solid 2px #AAA;
+    border-radius: 0;
+    padding-left: 0;
+    background: none;
+}
+
+label.placeholder input:focus {
+    -webkit-appearance: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* Placeholder */
+label.placeholder span.text {
+    position: absolute;
+    top: 20px;
+    color: #AAA;
+    transition: 200ms;
+}
+
+/* Current Focused Field */
+label.placeholder input:focus + span.text, label.placeholder input:not([value=""]) + span.text {
+    top: 0;
+    font-size: small;
+    color: #000;
+}

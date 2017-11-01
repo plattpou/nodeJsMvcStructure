@@ -7,11 +7,18 @@
       "developer" : 9000
   },
 
+  "defaultDeniedUrl": "/login",
+
   "routes" : [
     {
       "url" : "/",
       "controller" : "indexController",
-      "actions" : [{"get" : "any"},{"post" : "logged"}]
+      "actions" : [{"get" : "logged"},{"post" : "logged"}]
+    },
+    {
+      "url" : "/login",
+      "controller" : "loginController",
+      "actions" : [{"get" : "any"},{"post" : "any"}]
     }
   ]
 }
