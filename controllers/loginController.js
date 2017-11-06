@@ -1,3 +1,5 @@
+let bCrypt = require("bcrypt");
+let Acl = require("../libs/Acl");
 // noinspection JSUnusedGlobalSymbols
 module.exports = {
 
@@ -17,6 +19,11 @@ module.exports = {
         });
     },
 
+    /**
+     * Handler for login - in.
+     * @param req
+     * @param res
+     */
     post : function (req,res) {
 
         let UserDao = require("../dao/UserDao");
@@ -25,23 +32,15 @@ module.exports = {
 
         console.log('GUID: ' + UserDto.createGUID('User'));
 
-        let dto = new UserDto({
-            id : UserDto.createGUID('User'),
-            username : 'plattpou',
-            password : 'A13x',
-            accessLevel : 'developer',
-            screenName : 'Alex Platt'
+        userDao.findByUsernameAndPassword(req.body['username'],req.body['password'],function (result) {
+            if (result !== false) {
+                var acl = new Acl();
+                acl.createLoginCookie(result,res);
+            }
+
         });
 
-        console.log(dto);
 
-        userDao.createUser(dto);
-
-        //let user = userDao.findByUsername(req.body['username']);
-
-        //console.log(user.toArray());
-
-        res.json(dto);
     },
 
     //Optional, in case you need to execute something before every request
