@@ -3,5 +3,13 @@
   "version" : "1.0",
   "host" : "http://localhost",
   "port" : 3000,
-  "session_secret" : "V3ry53cr3t1v3-#$OMG!"
+  "session_secret" : "V3ry53cr3t1v3-#$OMG!",
+  "session_user_cookie" : "cms_user",
+  "session_user_cookie_max_age" : 3600000,
+
+  "db_host" : "localhost",
+  "db_user" : "root",
+  "db_password" : "my_password",
+  "db_database" : "my_app"
+
 }

@@ -27,19 +27,14 @@ module.exports = {
     post : function (req,res) {
 
         let UserDao = require("../dao/UserDao");
-        let UserDto = require("../dto/UserDto");
         let userDao = new UserDao();
-
-        console.log('GUID: ' + UserDto.createGUID('User'));
-
-        userDao.findByUsernameAndPassword(req.body['username'],req.body['password'],function (result) {
+        userDao.findByUsernameAndPassword(req.body['username'],req.body['password'],function (err,result) {
             if (result !== false) {
-                var acl = new Acl();
-                acl.createLoginCookie(result,res);
+                Acl.createLoginCookie(result,res,function (err,cookieData) {
+                    res.json(cookieData);
+                });
             }
-
         });
-
 
     },
 

@@ -1,7 +1,6 @@
 let login = {
 
     init: function (config) {
-        console.log(config);
 
         // noinspection JSUnresolvedFunction
         $('.login-form').unbind('submit').submit(function (event) {
@@ -15,7 +14,9 @@ let login = {
                 type: 'post',
                 data : form.serialize()
             }).done(function (response) {
-                console.log(response);
+                if (response) {
+                    document.location = config['webRoot'];
+                }
             });
 
 

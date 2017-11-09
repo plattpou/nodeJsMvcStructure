@@ -3,6 +3,8 @@ let bodyParser = require('body-parser');
 let server = require('http');
 let app = express(server);
 let session = require('express-session');
+let Acl = require(__dirname + "/libs/Acl");
+let cookieParser = require('cookie-parser');
 
 // noinspection JSUnresolvedFunction
 app.set('view engine','ejs');
@@ -43,23 +45,22 @@ Promise.all([
 ]).then(function ([config,routes]) {
 
     global['config'] = config;
+    global['accessLevels'] = routes['roles'] || {};
     global['webRoot'] = global['config']['host'] + ((global['config']['port'] !== 80) ? ":" + global['config']['port'] : "");
 
     //Middleware
-    app.use(bodyParser());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    app.use(cookieParser());
+
     // noinspection JSUnresolvedFunction
     app.use(express.static(__dirname + '/public'));
     // noinspection JSUnresolvedFunction,JSUnresolvedVariable
     app.use(session({secret:global['config'].session_secret, resave: false, saveUninitialized:true}));
 
     //Access Control Middleware
-    app.use(function (req,res,next) {
-
-        //@todo: refresh login cookie
-
-        req.currentAccessLevel = 0;
-        next();
-    });
+    let acl = new Acl();
+    app.use(acl.middleware);
 
 
     //Load all routes
